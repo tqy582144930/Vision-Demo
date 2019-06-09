@@ -21,8 +21,15 @@
     self.view.backgroundColor = [UIColor whiteColor];
     _imageView.frame = CGRectMake((self.view.bounds.size.width - 200)/2, 200, 200, 200);
     CIImage *faceCIImage = [[CIImage alloc] initWithImage:_imageView.image];
-    VNImageRequestHandler *vnRequestHeader = [[VNImageRequestHandler alloc] initWithCGImage:faceCIImage options:@{}];
+    VNImageRequestHandler *vnRequestHeader = [[VNImageRequestHandler alloc] initWithCIImage:faceCIImage options:@{}];
+    __weak VisionAnalyzeViewController *weakSelf = self;
+    VNDetectFaceLandmarksRequest *faceRequest = [[VNDetectFaceLandmarksRequest alloc] initWithCompletionHandler:^(VNRequest * _Nonnull request, NSError * _Nullable error) {
+//       [weakSelf face]
+    }];
+    [vnRequestHeader performRequests:@[faceRequest] error:NULL];
     [self.view addSubview:_imageView];
 }
+
+
 
 @end
